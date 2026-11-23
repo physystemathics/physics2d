@@ -1,0 +1,646 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>FISICA-II</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: hsl(245, 245, 245) !important;
+    min-height: 100vh;
+  }
+  html{
+    font-size: 14px;
+  }
+
+  .main {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: hsl(245, 245, 245) !important;
+    
+    /* 📱 Evita que el texto se desborde hacia los costados */
+    max-width: 100%;
+    box-sizing: border-box;
+    word-wrap: break-word; /* Rompe palabras largas si es necesario */
+    
+    /* 📱 Tamaño de letra inteligente: 22px en celular, crece hasta 35px en PC */
+    font-size: clamp(20px, 4.5vw, 35px); 
+    
+    /* 📱 Márgenes internos cómodos para que no toque los bordes del celular */
+    padding: 20px clamp(15px, 5vw, 50px); 
+    
+    min-height: 100vh;
+    } 
+    .escala:hover{
+        transition: 1.5s;
+        scale: 1.4;
+    }
+    .escala1:hover{
+        transition: 1.5s;
+        scale: 1;
+    }
+    .disp{
+        font-size: 1em;
+    padding: 1rem;
+    display: inline-block;
+    border: solid 3px red;
+    
+    }
+    .zoomder {
+      width: 100%;
+      transition: transform 0.3s;
+      transform-origin: left center;
+    }
+    .zoomder:hover{
+      transform: scale(1.8);
+    }
+    /*ul.reloj-pc{
+      font-family: 'Consolas', monospace;
+      font-size: 1.2rem;
+      background: #111827;
+      color: #00ff88;
+    }
+    ul.reloj-pc li{
+      margin:10px 0;
+      font-size: 1.1rem;
+    }
+    .hora-grande {
+      font-size: 2.5rem;
+      font-weight: bold;
+      letter-spacing: 3px;
+    }*/
+
+    
+
+</style>
+<style>
+  #li-reloj {
+      background-color: #111827;
+      color: #00ff88;
+      padding: 5px 15px; /* Un poco más de espacio interno para que respire */
+      border-radius: 8px;
+      font-weight: bold;
+      font-family: 'Consolas', monospace;
+      text-align: center;
+      
+      /* 📱 TAMAÑO ADAPTABLE INTELIGENTE: */
+      /* Medirá 1.8rem en celulares y crecerá hasta 3.5rem en computadoras */
+      font-size: clamp(1.8rem, 6vw, 3.5rem); 
+      
+      /* Evita que el reloj se desborde si el contenedor es estrecho */
+      max-width: 100%;
+      box-sizing: border-box;
+  }
+  .table-responsive table {
+    font-size: clamp(14px, 3.5vw, 18px) !important;
+}
+
+/* Achica un poco más los títulos de las columnas para que quepan mejor */
+.table-responsive th {
+    font-size: clamp(13px, 3.2vw, 16px) !important;
+    white-space: nowrap; /* Evita que los títulos se amontonen feo hacia abajo */
+}
+</style>
+/* para animacion gif y png */
+<link  rel="stylesheet" href="styles.css">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Updated: Apr 20 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+    <!--<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script> -->
+    <!-- desxativar internet -->
+    <!----> 
+    <script id="MathJax-script" async src="./js/texmmlchtml.js"></script>
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center" style="background-color: rgb(10,25,47);">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="assets/img/logo.png" alt="">
+        <span class="d-none d-lg-block text-white">  FISICA II</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn text-white"></i>
+    </div><!-- End Logo -->
+
+    <div class="search-bar">
+      <form class="search-form d-flex align-items-center" method="POST" action="#">
+        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div><!-- End Search Bar -->
+    
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+         <li class="">
+          <a class="nav-link nav-icon" href="index.html">
+            <img src="assets/img/logo.png" alt="">
+            <span class="badge bg-primary badge-number">1</span>
+          </a><!-- End Notification Icon -->
+        </li><!-- End Notification Nav -->
+        
+        <li class="">
+          <a class="nav-link nav-icon" href="index.html">
+            <img src="assets/img/logo.png" alt="">
+            <span class="badge bg-primary badge-number">2</span>
+          </a><!-- End Notification Icon -->
+        </li><!-- End Notification Nav -->
+        
+        <li class="">
+          <a class="nav-link nav-icon" href="index.html">
+            <img src="assets/img/logo.png" alt="">
+            <span class="badge bg-primary badge-number">3</span>
+          </a><!-- End Notification Icon -->
+        </li><!-- End Notification Nav -->
+
+        
+        <li id="li-reloj">
+          00:00:00
+        </li>
+
+
+      </ul>
+
+      <script>
+        function actualizarHora(){
+          const ahora=new Date();
+          const hora= ahora.toLocaleTimeString('es-BO',{ hour12:false});
+          document.getElementById('li-reloj').textContent=hora;
+        }
+        
+        actualizarHora();
+        setInterval(actualizarHora, 1000);
+      </script>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar" style="background-color: rgb(0, 0, 128);">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link collapsed text-white" style="background-color: rgb(0, 0, 128);" href="index.html">
+          <i class="bi bi-person"></i>
+          <span >PERFIL</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item" >
+        <a class="nav-link text-white" style="background-color: rgb(0, 0, 128);" href="index.html">
+          <i class="bi bi-grid text-white"></i>
+          <span>DESCRIPCIÓN</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item" >
+        <a class="nav-link text-white" style="background-color: rgb(0, 0, 128);" href="index.html">
+          <i class="bi bi-menu-button-wide text-white"></i>
+          <span>CONTENIDO</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item" >
+        <a class="nav-link text-white" style="background-color: rgb(0, 0, 128);" href="index.html">
+          <i class="bi bi-menu-button-wide text-white"></i>
+          <span>BIBLIOGRAFÍA</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+      
+      <li class="nav-heading">MÓDULOS</li>
+      
+      <li class="nav-item">
+        <a class="nav-link text-white" style="background-color: rgb(0, 0, 128);" href="https://physystemathics.github.io/physics2a/">
+          <i class="bi bi-menu-button-wide"></i>
+          <span>COULOMB</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link text-white" style="background-color: rgb(0, 0, 128);" href="https://physystemathics.github.io/physics2b/">
+          <i class="bi bi-menu-button-wide"></i>
+          <span>CAMPO</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link text-white" style="background-color: rgb(0, 0, 128);" href="https://physystemathics.github.io/physics2c/">
+          <i class="bi bi-menu-button-wide"></i>
+          <span>POTENCIAL</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link text-white" style="background-color: rgb(0, 0, 128);" href="https://physystemathics.github.io/physics2d/">
+          <i class="bi bi-menu-button-wide"></i>
+          <span>CONDENSADOR</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link text-white" style="background-color: rgb(0, 0, 128);" href="https://physystemathics.github.io/physics2e/">
+          <i class="bi bi-menu-button-wide"></i>
+          <span>CORRIENTE</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link text-white" style="background-color: rgb(0, 0, 128);" href="index.html">
+          <i class="bi bi-menu-button-wide"></i>
+          <span>EJERCICIOS</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+    </ul>
+
+  </aside><!-- End Sidebar <main id="main" class="main"> -->
+  <main id="main" class="main">
+    
+
+       <!-- NOMBRE FORMULA --> <!-- NOMBRE FORMULA --> <!-- NOMBRE FORMULA --> <!-- NOMBRE FORMULA --> <!-- NOMBRE FORMULA -->
+        <!-- NOMBRE FORMULA --> <!-- NOMBRE FORMULA --> <!-- NOMBRE FORMULA --> <!-- NOMBRE FORMULA --> <!-- NOMBRE FORMULA -->
+        <p><b>10 Condensadores y dieléctricos</b></p>
+        <p>Un condensador o capacitador es un dispositivo eléctrico que se utiliza para almacenar energía en forma de campo 
+          eléctrico y está formado por dos placas o armaduras construidas por un material conductor y separadas una distancia y
+        en su interior se tiene un material aislante que se denomina dieléctrico y que permite aumentar la capacitancia de condensador.</p>
+        <figure>
+          <center><img class="" src="img/fig10-1.png" width="60%"></center><br>
+          <figcaption class="text text-center text-primary h4"><i><b>Figura 10-1</b>Condensador</i></figcaption>      
+        </figure><br>
+        <p><b>10.1 Capacitancia. - [𝑪]</b></p>
+        <p>Se define como la constante de proporcionalidad que entre la carga que adquiere una de las placas del condensador y la diferencia
+           potencial entre ellas.</p>
+           <center><img class="" src="img/fig10a.png" width="60%"></center>
+        \[q\propto V\]
+        <div class="row border-danger ">
+          <div class="col-md-8 pt-3 pb-3 border border-danger h1 escala">
+            \[q=C\,V\]
+          </div>
+          <!-- NOMBRE FORMULA -->
+          <div class="col-md-4 pt-3 pb-3 border border-danger h4">
+              <center><b>Ecuación 10.1</b></center>
+        </div>
+        </div><br>
+        \[C=\frac{q}{V}\;\left[F\right]\]
+        <p>Subm&uacute;ltiplos: \(mF, &micro; F, pF.\)</p>
+        <p>Si tenemos dos casquetes esféricos metálicos y se carga uno de ellos con un potencial (+) y el otro con potencial (-).</p>
+        <center><img class="" src="img/fig10b.png" width="80%"></center>
+        <p>El potencial:</p>
+        \[V^+=k\frac{q}{r} \qquad;\qquad V^-=k\frac{-q}{r}\]
+        Diferencia de potencial:
+        \[V=\frac{kq}{r}-\frac{-kq}{r}=\frac{2kq}{r}\]
+        Si:
+        \[k=\frac{1}{4&pi;\varepsilon_0 r}\]
+        Entonces:
+        \[V=\frac{q}{2&pi;\varepsilon_0 r}\]
+        \[q\propto V \quad; \quad q=C\,V\]
+        \[C=2&pi;\varepsilon_0 r \quad \text{La capacitancia no depende de la carga}\]
+        <center><p><i>f</i>=(medio, geometría)</p></center>
+        <p>No cometer el error</p>
+        \[C=\frac{q}{V}\quad q=0\]
+        <p>No implica que \(C=0\)</p>
+        <p><b>10.1.1 Cálculo de la capacitancia.</b></p>
+        <p>Para encontrar la capacitancia de un condensador, podemos seguir la siguiente estrategia o procedimiento.</p>
+        <p>1° Asignamos cargas a las placas del condensador una armadura será (+) y la otra será (-), si es que no tiene carga.</p>
+        <p>2° Determinamos la diferencia de potencial entre las placas y para esto podemos utilizar la definición de potencial, la
+           ecuación de Laplace o por la ley de Gauss determinamos el campo eléctrico y la relación entre el campo y el potencial 
+           encontramos la diferencia de potencial.</p>
+        <p>3° Establecemos la ecuación de definición.</p>
+        \[C=\frac{q}{V} \qquad ; \qquad C=f(\text{𝑚𝑒𝑑𝑖𝑜, 𝑔𝑒𝑜𝑚𝑒𝑡𝑟í𝑎})\]
+        <p><b>Ejemplo. </b> Hallar la capacitancia de un condensador de placas paralelas de área A, separadas una distancia d que
+           se encuentran en el vacío \(\varepsilon_0\).</p>
+           <center><img class="" src="img/fig10c.png" width="60%"></center>
+           <p>Por Gauss:</p>
+
+           <p>d.d.p.p entre placas paralelas:</p>
+           \[V=E\,d\]
+           <p>La capacitancia</p>
+           \[C=\frac{q}{V}\]
+           <div class="row border-danger ">
+            <div class="col-md-8 pt-3 pb-3 border border-danger h1 escala">
+              \[C=\varepsilon_0\frac{A}{d}\]
+            </div>
+            <!-- NOMBRE FORMULA -->
+            <div class="col-md-4 pt-3 pb-3 border border-danger h4">
+                <center><b>Ecuación 10.2</b></center>
+          </div>
+          </div><br>
+          \[C\propto A\]
+          \[C \propto \frac{1}{d}\]
+
+      <p><b>10.2 Energía Almacenada en un condensador.</b></p>
+      <p>Un condensador almacena energía en forma de campo eléctrico y para deducir una expresión matemática vamos a suponer que 
+        tenemos un condensador de placas paralelas de sección transversal “A”, separadas una distancia “d” en el vacío y vamos a 
+        conectar a una fuente de corriente continua.</p>
+        <figure>
+          <center><img class="" src="img/fig10-2.png" width="60%"></center><br>
+          <figcaption class="text text-center text-primary h4"><i><b>Figura 10-2 </b>Energía almacenada por un condensador</i></figcaption>      
+        </figure><br>  
+        <p>La potencia</p>
+        \[P=V\, i [W]\]
+        \[C=\frac{q}{V}\qquad q=C\,V \qquad V=\frac{q}{C}\]
+        Pero:
+        \[i=\frac{dq}{dt}\]
+        Reemplazando:
+        \[P=\frac{q}{C}\frac{dq}{dt}\]
+        La energía
+        \[\varepsilon=\int P\,dt [J]\] 
+        \[E=\frac{q}{C}\frac{dq}{dt}\] 
+        \[\varepsilon=\frac{1}{2}\frac{q^2}{c} \;[J]\]
+        Pero:
+        \[q=C\,V \]
+        <div class="row border-danger ">
+          <div class="col-md-8 pt-3 pb-3 border border-danger h1 escala">
+            \[\varepsilon=\frac{1}{2}\frac{q^2}{C}=\frac{1}{2}C\,V^2=\frac{1}{2}q\,V \;[J]\]
+          </div>
+          <!-- NOMBRE FORMULA -->
+          <div class="col-md-4 pt-3 pb-3 border border-danger h4">
+              <center><b>Ecuación 10.3</b></center>
+        </div>
+        </div><br>
+        <p>Interesa la densidad volumétrica de energía.</p>
+        \[\varepsilon_V=\frac{\text{𝐸𝑛𝑒𝑟𝑔í𝑎}}{\text{𝑉𝑜𝑙𝑢𝑚𝑒𝑛}}\]
+        <div class="row border-danger ">
+          <div class="col-md-8 pt-3 pb-3 border border-danger h1 escala">
+            \[\varepsilon=\frac{1}{2}\frac{q^2}{C\,A\,d}=\frac{1}{2}\varepsilon_0\,\varepsilon^2\; \left[\frac{J}{m^3}\right]\]
+          </div>
+          <!-- NOMBRE FORMULA -->
+          <div class="col-md-4 pt-3 pb-3 border border-danger h4">
+              <center><b>Ecuación 10.4</b></center>
+        </div>
+        </div><br>
+
+      <p><b>10.4 Conexiones de Condensadores </b></p>   
+      <p><b>10.4.1 Conexión en serie </b></p>
+      <p>Los condensadores se conectan uno a continuación del otro. </p>
+      <figure>
+        <center><img class="" src="img/fig10-6.png" width="60%"></center><br>
+        <figcaption class="text text-center text-primary h4"><i><b>Figura 10-6 </b>Conexión Serie </i></figcaption>      
+      </figure><br>
+      <p>En conexión serie: </p>
+      <div class="row border-danger ">
+          <div class="col-md-8 pt-3 pb-3 border border-danger h1 escala">
+            \[q=q_1=q_2=q_3=q_4\]
+          </div>
+          <!-- NOMBRE FORMULA -->
+          <div class="col-md-4 pt-3 pb-3 border border-danger h4">
+              <center><b>Ecuación 10.7</b></center>
+        </div>
+        </div><br>
+        <div class="row border-danger ">
+          <div class="col-md-8 pt-3 pb-3 border border-danger h1 escala">
+            \[V=V_1+V_2+V_3+V_4\]
+          </div>
+          <!-- NOMBRE FORMULA -->
+          <div class="col-md-4 pt-3 pb-3 border border-danger h4">
+              <center><b>Ecuación 10.8</b></center>
+        </div>
+        </div><br>
+        <p>Recordando:</p>
+        \[q_i=C_i\,V_i\]
+        Luego:
+        \[V=\frac{q_1}{V_1}+\frac{q_2}{V_2}+\frac{q_3}{V_3}+\frac{q_4}{V_4}\]
+        \[\frac{V}{q}=\frac{1}{C_eq}=\frac{1}{q_1}+\frac{1}{q_2}+\frac{1}{q_3}+\frac{1}{q_4}\;\left[\frac{1}{F}\right]\]
+        <div class="row border-danger ">
+          <div class="col-md-8 pt-3 pb-3 border border-danger h1 escala">
+            \[\frac{1}{C_eq}=\sum\frac{1}{C_i}\]
+          </div>
+          <!-- NOMBRE FORMULA -->
+          <div class="col-md-4 pt-3 pb-3 border border-danger h4">
+              <center><b>Ecuación 10.9</b></center>
+        </div>
+        </div><br>
+        <p><b>10.4.2 Conexión en paralelo </b></p>
+        <figure>
+        <center><img class="" src="img/fig10-7.png" width="80%"></center><br>
+        <figcaption class="text text-center text-primary h4"><i><b>Figura 10-7 </b>Conexión en Paralelo </i></figcaption>      
+      </figure><br>
+      <p>En paralelo: </p>
+      <div class="row border-danger ">
+          <div class="col-md-8 pt-3 pb-3 border border-danger h1 escala">
+            \[V=q_1+q_2+q_3+q_4\]
+          </div>
+          <!-- NOMBRE FORMULA -->
+          <div class="col-md-4 pt-3 pb-3 border border-danger h4">
+              <center><b>Ecuación 10.10</b></center>
+        </div>
+        </div><br>
+        <div class="row border-danger ">
+          <div class="col-md-8 pt-3 pb-3 border border-danger h1 escala">
+            \[V=V_1=V_2=V_3=V_4\]
+          </div>
+          <!-- NOMBRE FORMULA -->
+          <div class="col-md-4 pt-3 pb-3 border border-danger h4">
+              <center><b>Ecuación 10.11</b></center>
+        </div>
+        </div><br>
+        Luego:
+         \[q=C_1V_1+C_2V_2+C_3V_3+C_4V_4=(C_1+C_2+C_3+C_4)V\]
+         \[\frac{q}{V}=C_eq=C_1+C_2+C_3+C_4\;\left[F\right]\]
+         <div class="row border-danger ">
+          <div class="col-md-8 pt-3 pb-3 border border-danger h1 escala">
+            \[C_eq=\sum C_i\]
+          </div>
+          <!-- NOMBRE FORMULA -->
+          <div class="col-md-4 pt-3 pb-3 border border-danger h4">
+              <center><b>Ecuación 10.12</b></center>
+        </div>
+        
+
+
+      <p><b>10.5 Condensadores y dieléctricos</b></p>
+      <p>Un dieléctrico es un material aislante que se introduce entre las armaduras de un condensador y permite aumentar
+         la capacidad con respecto al vacío.<p>
+         
+      <div class="row">
+        <div class="col-md-6 pt-3 pb-3  h1">
+          <ul><li>Vacío</li></ul>
+          <center><img class="" src="img/fig10-8.png" width="60%"></center>
+          \[C_0=\varepsilon_0 \frac{A}{d}\]
+          \[V_0=E_0\,d\]
+          \[C_0=\frac{q}{V_0}\]
+        </div>
+        <div class="col-md-6 pt-3 pb-3  h1">
+          <ul><li>Con Diel&eacute;ctrico</li></ul>
+          <center><img class="" src="img/fig10-9.png" width="60%"></center>
+            \[E=E_0-E_{ind}&lt;E_0\]
+            \[V&lt;V_0\]
+            \[C=\frac{q}{V}\]
+        </div>
+      </div>
+      \[C_0&lt;C\]
+      \[C=K\,C_0\]
+      \[K:\text{Constante Diel&eacute;ctrico}\]
+      \[K=\frac{\varepsilon}{\varepsilon_0}=\varepsilon_r \qquad \text{Permitividad relativa}\]
+      \[C=K\,\varepsilon_0 \frac{A}{d}\]
+      <div class="row border-danger ">
+        <center><div class="col-md-8 pt-3 pb-3 border border-danger h1">
+          \[C=\varepsilon \frac{A}{d}\]
+        </div></center>
+        <!-- NOMBRE FORMULA -->
+      </div><br>
+      <div class="row">
+        <div class="col-md-6 pt-3 pb-3  h1">
+            \[K=\frac{E_0}{E}\]
+        </div>
+        <div class="col-md-6 pt-3 pb-3  h1">
+          \[K=\frac{V}{V_0}\]
+        </div>
+      </div>
+      <p>Si aplicamos la ley de Gauss a un condensador plano:</p>
+        <center><img class="" src="img/fig10d.png" width="70%"></center><br>
+        <ul><li>Con Diel&eacute;ctrico</li></ul>            
+        \[\oint\!\!\!\!\int_{(A)} \vec{E}\cdot d\vec{s}=\frac{q-q^l}{\varepsilon_{0}}\]
+        \[E\,A=\frac{q-q^l}{\varepsilon_{0}}\]
+        \[\varepsilon_{0}\,E=\frac{q}{A}-\frac{q^l}{A}\]
+        \[\varepsilon_{0}\,E=D-P\]
+        <div class="row border-danger ">
+          <div class="col-md-9 pt-3 pb-3 border border-danger h1 escala">
+              <div style="min-width: 550px; padding-bottom: 5px;">
+                \[\vec{D}=\varepsilon_{0}\,\vec{E}+\vec{P}\]
+            </div>
+          </div>
+          <!-- NOMBRE FORMULA -->
+          <div class="col-md-3 pt-3 pb-3 border border-danger h4">
+              <center><b>Ecuación 10.13</b></center>
+        </div>
+      </div>
+
+      <ul><li>Vacío</li></ul>
+      \[P=0 \qquad ; \qquad q^l=0\]
+      <p>Para el vacío, el desplazamiento:</p>
+      \[D=\varepsilon_{0}\,E\]
+      <p>Si aplicamos, la ley de Gauss</p>
+      \[\oint\!\!\!\!\int \vec{E}\cdot d\vec{s}=\frac{q}{\varepsilon_{0}}\]
+      \[\oint\!\!\!\!\int \varepsilon_{0}\vec{E}\cdot d\vec{s}=q\]
+      <div class="row border-danger ">
+        <div class="col-md-9 pt-3 pb-3 border border-danger h1 escala">
+            <div style="min-width: 550px; padding-bottom: 5px;">
+              \[\oint\!\!\!\!\int \vec{D}\cdot d\vec{s}=q\]
+          </div>
+        </div>
+        <!-- NOMBRE FORMULA -->
+        <div class="col-md-3 pt-3 pb-3 border border-danger h4">
+            <center><b>Ecuación 10.14</b></center>
+      </div>
+      </div>
+      <p>Además:</p>
+      \[q^l=q\left(1-\frac{1}{K}\right)\]
+      \[K:\text{Constante Diel&eacute;ctrico}\]
+      <p>No olvidar que:</p>
+      \[\vec{D}=\varepsilon_{0}\,\vec{E}+\vec{P}\]
+      <center><p><b>Suma de los 3 vectores.</b></p></center>
+      <br><br>
+      <hr>
+      <br><br>
+    
+      
+
+
+
+
+
+
+
+        
+
+
+    
+                
+                    
+                    
+
+
+
+
+
+  </main>
+  <!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="assets/vendor/echarts/echarts.min.js"></script>
+  <script src="assets/vendor/quill/quill.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
